@@ -33,6 +33,7 @@ const imageBackDom = document.getElementsByClassName('image-back');
 const imgClick =document.getElementsByClassName('.img-back');
 const nextDom = document.querySelector('#next');
 const prevDom = document.querySelector('#prev');
+const reverseDom = document.querySelector('#reverse');
 
 let activeImage = 0;
 let columnContent = "";
@@ -83,17 +84,20 @@ function prevSlide(){
 
 let skip;
 
+let reverse;
+
 nextDom.addEventListener('click', function(){
     skip = setInterval(timeSkip, 2000);
 })
 
-prevDom.addEventListener('click', function(){
-    clearInterval(skip);
+reverseDom.addEventListener('click', function(){
+    reverse = setInterval(timeSkipReverse, 2000);
 })
 
-function myStopFunction() {
-    clearInterval(myInterval);
-}
+prevDom.addEventListener('click', function(){
+    clearInterval(skip);
+    clearInterval(reverse);
+})
 
 function timeSkip(){
     if (activeImage < cardContainer.length - 1) {
@@ -109,6 +113,18 @@ function timeSkip(){
     }
 }
 
+function timeSkipReverse(){
+    if (activeImage > 0) {
+        nextSlide();
+        activeImage--;
+        prevSlide();
+
+    }else{
+        nextSlide();
+        activeImage = [4];
+        prevSlide();
+    }   
+}
 
 
 

@@ -54,6 +54,10 @@ body{
     bottom: 5%;
 }
 
+#reverse{
+    top:50%;
+}
+
 #next.d-none {
     display: none;
 }
@@ -116,4 +120,5 @@ body{
 .fa-solid, .fas {
     font-weight: 900;
     font-size: 20px;
-  }
+}
+
