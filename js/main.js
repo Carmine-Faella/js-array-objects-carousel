@@ -1,3 +1,5 @@
+//Definisco l'arrey degli elementi
+
 const imagesArrey = [
     {
         image: 'img/01.webp',
@@ -22,13 +24,21 @@ const imagesArrey = [
     }
 ];
 
+//Definisco le variabili
+
 const imageDom = document.querySelector('.images');
-
 const imageContainerDom = document.querySelector('.image-container');
+const cardContainer = document.getElementsByClassName('card-image');
+const imageBackDom = document.getElementsByClassName('image-back');
+const imgClick =document.getElementsByClassName('.img-back');
+const nextDom = document.querySelector('#next');
+const prevDom = document.querySelector('#prev');
 
+let activeImage = 0;
 let columnContent = "";
-
 let imageContent = ""; 
+
+//Prendo gli elementi nell'array e li popolo
 
 imagesArrey.forEach((element) => {
 
@@ -52,36 +62,27 @@ imagesArrey.forEach((element) => {
 
 console.log(imagesArrey)
 
+//Inserisco nel Dom gli elementi
 imageDom.innerHTML = columnContent;
 imageContainerDom.innerHTML = imageContent;
-
-const cardContainer = document.getElementsByClassName('card-image');
-const imageBackDom = document.getElementsByClassName('image-back');
-
-let activeImage = 0;
 
 cardContainer[activeImage].classList.add('d-block'); 
 imageBackDom[activeImage].classList.add('current');
 
-const nextDom = document.querySelector('#next');
-const prevDom = document.querySelector('#prev');
+//Creo gli addEventListener
 
 nextDom.addEventListener('click', 
     function() {
         if (activeImage < cardContainer.length - 1) {
 
-            cardContainer[activeImage].classList.remove('d-block');
-            imageBackDom[activeImage].classList.remove('current');
+            nextSlide();
             activeImage++;
-            cardContainer[activeImage].classList.add('d-block');
-            imageBackDom[activeImage].classList.add('current');
+            prevSlide();
 
         }else{
-            cardContainer[activeImage].classList.remove('d-block');
-            imageBackDom[activeImage].classList.remove('current');
+            nextSlide();
             activeImage = 0;
-            cardContainer[activeImage].classList.add('d-block');
-            imageBackDom[activeImage].classList.add('current');
+            prevSlide();
         }
     }
 );
@@ -89,18 +90,33 @@ nextDom.addEventListener('click',
 prevDom.addEventListener('click', 
     function() {
         if (activeImage > 0) {
-            cardContainer[activeImage].classList.remove('d-block');
-            imageBackDom[activeImage].classList.remove('current');
+            nextSlide();
             activeImage--;
-            cardContainer[activeImage].classList.add('d-block');
-            imageBackDom[activeImage].classList.add('current');
+            prevSlide();
 
         }else{
-            cardContainer[activeImage].classList.remove('d-block');
-            imageBackDom[activeImage].classList.remove('current');
+            nextSlide();
             activeImage = [4];
-            cardContainer[activeImage].classList.add('d-block');
-            imageBackDom[activeImage].classList.add('current');
+            prevSlide();
         }   
     }
 );
+
+function nextSlide(){
+    cardContainer[activeImage].classList.remove('d-block');
+    imageBackDom[activeImage].classList.remove('current');
+}
+
+function prevSlide(){
+    cardContainer[activeImage].classList.add('d-block');
+    imageBackDom[activeImage].classList.add('current');
+}
+
+
+
+
+
+
+
+
+
