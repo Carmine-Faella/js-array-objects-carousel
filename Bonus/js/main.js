@@ -30,18 +30,16 @@ const imageDom = document.querySelector('.images');
 const imageContainerDom = document.querySelector('.image-container');
 const cardContainer = document.getElementsByClassName('card-image');
 const imageBackDom = document.getElementsByClassName('image-back');
-const imgClick =document.getElementsByClassName('.img-back');
 const nextDom = document.querySelector('#next');
 const prevDom = document.querySelector('#prev');
 const reverseDom = document.querySelector('#reverse');
 
 let activeImage = 0;
 let columnContent = "";
-let imageContent = ""; 
 
 //Prendo gli elementi nell'array e li popolo
 
-imagesArrey.forEach((element) => {
+imagesArrey.forEach((element, index) => {
 
     const card = `<div class="card-image">
                         <img class="img" src="${element.image}" />
@@ -51,21 +49,24 @@ imagesArrey.forEach((element) => {
                         </div>
                   </div>`;
 
-    const newImage = `<div class="image-back">
-                            <img class="img-back" src="${element.image}" />
-                       </div>`;
+    const newImage = document.createElement('div');
+    newImage.classList.add('image-back');
+    newImage.innerHTML = `<img class="img-back" src="${element.image}" />`;
 
-    imageContent += newImage;
+    newImage.addEventListener('click', function(){
+        nextSlide();
+        activeImage = index
+        prevSlide();
+    })
 
+    imageContainerDom.append(newImage);
     columnContent += card;    
-
 } )
 
 console.log(imagesArrey)
 
 //Inserisco nel Dom gli elementi
 imageDom.innerHTML = columnContent;
-imageContainerDom.innerHTML = imageContent;
 
 cardContainer[activeImage].classList.add('d-block'); 
 imageBackDom[activeImage].classList.add('current');
@@ -87,11 +88,11 @@ let skip;
 let reverse;
 
 nextDom.addEventListener('click', function(){
-    skip = setInterval(timeSkip, 2000);
+    skip = setInterval(timeSkip, 3000);
 })
 
 reverseDom.addEventListener('click', function(){
-    reverse = setInterval(timeSkipReverse, 2000);
+    reverse = setInterval(timeSkipReverse, 3000);
 })
 
 prevDom.addEventListener('click', function(){
